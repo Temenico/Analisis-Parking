@@ -1,0 +1,24 @@
+@startuml Diagrama de Secuencia
+actor Usuario
+actor Operador
+participant ReconocimientoMatriculas
+participant ControlAcceso
+participant Vehiculo
+participant Reporte
+participant Barrera
+participant PanelControlOperador
+
+Usuario -> ReconocimientoMatriculas: capturarImagen()
+ReconocimientoMatriculas -> ReconocimientoMatriculas: procesarImagen()
+ReconocimientoMatriculas -> ReconocimientoMatriculas: convertirTexto()
+ReconocimientoMatriculas -> ControlAcceso: validarMatricula(matricula)
+ControlAcceso -> Vehiculo: registrarHoraEntrada()
+ControlAcceso -> Barrera: abrir()
+
+Usuario -> PanelControlOperador: consultarInformacionVehiculo(matricula)
+PanelControlOperador -> Vehiculo: mostrarDatos()
+
+Operador -> PanelControlOperador: accederPanelControl()
+Operador -> Reporte: generarReporteVentas()
+Reporte -> Operador: mostrarReporte()
+@enduml

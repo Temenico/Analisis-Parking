@@ -1,0 +1,40 @@
+@startuml Diagrama de Casos de Uso
+
+left to right direction
+
+actor Conductor
+actor Administrador
+
+rectangle SistemaParqueadero {
+    usecase (Buscar disponibilidad) as UC1
+    usecase (Ingresar al parqueadero) as UC2
+    usecase (Realizar pago) as UC4
+    usecase (Recibir factura) as UC5
+    usecase (Salir del parqueadero) as UC6
+
+    usecase (Iniciar sesión) as UC7
+    usecase (Monitorear estado) as UC8
+    usecase (Gestionar vehículos) as UC9
+    usecase (Generar reportes) as UC11
+}
+
+Conductor -- UC1
+Conductor -- UC2
+Conductor -- UC4
+Conductor -- UC5
+Conductor -- UC6
+
+Administrador -- UC7
+Administrador -- UC8
+Administrador -- UC9
+Administrador -- UC11
+
+UC2 ..> (Validar acceso)
+UC2 <.. (Control de acceso)
+
+UC4 ..> (Procesar pago)
+
+UC6 ..> (Validar salida)
+UC6 <.. (Control de acceso)
+
+@enduml

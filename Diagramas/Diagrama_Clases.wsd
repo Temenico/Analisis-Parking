@@ -1,0 +1,67 @@
+@startuml Diagrama de Clases
+
+class Vehiculo {
+  - placa: string
+  - tipo: string
+  - propietario: Propietario
+  + ingresarDatosPlaca()
+  + obtenerDatosPlaca()
+}
+
+class EspacioEstacionamiento {
+  - numero: int
+  - disponibilidad: boolean
+  - tipoVehiculoPermitido: string
+}
+
+class RegistroAsignacion {
+  - vehiculo: Vehiculo
+  - horaEntrada: datetime
+  - horaSalida: datetime
+  + registrarEntrada()
+  + registrarSalida()
+}
+
+class SistemaPago {
+  + procesarPago(metodoPago: string, monto: float): boolean
+}
+
+class Factura {
+  - tarifa: float
+  - impuestos: float
+  - total: float
+  + generarFactura()
+  + enviarFactura()
+}
+
+
+class ControlAcceso {
+  - mecanismo: string (LPR)
+  + validarAcceso(Vehiculo): boolean
+}
+
+class InterfazAdministrador {
+  + gestionarVehiculos()
+  + generarReportes()
+}
+
+class SistemaParqueadero {
+  - vehiculos: Vehiculo[]
+  - registros: RegistroAsignacion[]
+  - controlAcceso: ControlAcceso
+  - interfazAdministrador: InterfazAdministrador
+  + procesarPago(Vehiculo, metodoPago): Factura
+  + controlarAcceso(Vehiculo): boolean
+}
+
+
+RegistroAsignacion *-- Vehiculo: composición
+RegistroAsignacion <.. EspacioEstacionamiento: dependencia
+SistemaParqueadero o-- Vehiculo: agregación
+SistemaParqueadero *-- RegistroAsignacion: composición
+SistemaParqueadero *-- ControlAcceso: composición
+SistemaParqueadero  -- InterfazAdministrador: asociación
+SistemaParqueadero  <.. SistemaPago: dependencia
+SistemaPago *-- Factura: composición
+
+@enduml
